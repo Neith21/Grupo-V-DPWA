@@ -17,9 +17,10 @@ namespace G5CarRental
 
 			builder.Services.AddSingleton<SqlDataAccess>();
 			builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
-			builder.Services.AddScoped<IValidator<EmployeeModel>, EmployeeValidator>();
+            builder.Services.AddScoped<IValidator<EmployeeModel>, EmployeeValidator>();
+            builder.Services.AddScoped<IRentalsRepository, RentalsRepository>();
 
-			var app = builder.Build();
+            var app = builder.Build();
 
 			// Configure the HTTP request pipeline.
 			if (!app.Environment.IsDevelopment())

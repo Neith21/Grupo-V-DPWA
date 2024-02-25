@@ -1,0 +1,16 @@
+﻿@model RentalsModel
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h1>Borrar registro.</h1>
+
+<h3>¿Desea borrar este registro?</h3>
+<div>
+    <form asp-action="Delete">
+        <input asp-for="RentID" type="hidden" class="form-control">
+        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        <a asp-action="Index" class="btn btn-danger">Regresar al listado</a>
+    </form>
+</div>  

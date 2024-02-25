@@ -1,0 +1,81 @@
+﻿@model RentalsModel
+
+@{
+    ViewData["Title"] = "Nuevo arrendamiento";
+}
+
+<h1>Nuevo Arrendamiento</h1>
+<hr />
+
+<div class="row">
+    <div class="col-md-12">
+        <form asp-action="Create" onsubmit="return confirmAction();">
+            @Html.AntiForgeryToken()
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group mb-3">
+                <label asp-for="CustomerFirstName" class="control-label">Cliente</label>
+                <select class="form-select" asp-for="CustomerID" asp-items="@ViewBag.Customers">
+                    <option value="">Seleccione</option>
+                </select>
+                <span asp-validation-for="CustomerID" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="Model" class="control-label">Vehículo arrendado</label>
+                <select class="form-select" asp-for="VehicleID" asp-items="@ViewBag.Vehicles">
+                    <option value="">Seleccione</option>
+                </select>
+                <span asp-validation-for="VehicleID" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="EmployeeFirstName" class="control-label">Nombre del empleado</label>
+                <select class="form-select" asp-for="EmployeeID" asp-items="@ViewBag.Employees">
+                    <option value="">Seleccione</option>
+                </select>
+                <span asp-validation-for="EmployeeID" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="StartDate" class="control-label">Fecha Inicio</label>
+                <input asp-for="StartDate" class="form-control datepicker" />
+                <span asp-validation-for="StartDate" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="EndDate" class="control-label">Fecha Final</label>
+                <input asp-for="EndDate" class="form-control datepicker" />
+                <span asp-validation-for="EndDate" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="AmountPaid" class="control-label">Monto Canelado</label>
+                <input asp-for="AmountPaid" class="form-control" />
+                <span asp-validation-for="AmountPaid" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Guardar" class="btn btn-primary" />
+
+                <a asp-action="Index" class="btn btn-danger">Regresar al listado</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script>
+        function confirmAction() {
+            if (confirm('¿Estás seguro de agregar este empleado?')) {
+                return true;
+            } else {
+                window.location.href = '@Url.Action("Index", "Rentals")';
+                return false;
+            }
+        }
+    </script>
+}
