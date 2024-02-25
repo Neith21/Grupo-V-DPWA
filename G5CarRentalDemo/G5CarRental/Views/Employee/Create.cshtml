@@ -1,0 +1,81 @@
+﻿@model EmployeeModel
+@{
+    ViewData["Title"] = "Nuevo Empleado";
+}
+
+<h1>Nuevo Empleado</h1>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+
+            <div asp-validation-summary="ModelOnly"></div>
+
+            <form asp-action="Create" onsubmit="return confirmAction();">
+                @Html.AntiForgeryToken()
+                <div class="mb-3">
+                    <label asp-for="EmployeeFirstName" class="form-label">Nombres</label>
+                    <input asp-for="EmployeeFirstName" type="text" class="form-control" />
+                    <span asp-validation-for="EmployeeFirstName" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="EmployeeLastName" class="form-label">Apellidos</label>
+                    <input asp-for="EmployeeLastName" type="text" class="form-control" />
+                    <span asp-validation-for="EmployeeLastName" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Position" class="form-label">Posición</label>
+                    <input asp-for="Position" type="text" class="form-control" />
+                    <span asp-validation-for="Position" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Salary" class="form-label">Salario</label>
+                    <input asp-for="Salary" type="text" class="form-control" />
+                    <span asp-validation-for="Salary" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="EmployeeEmail" class="form-label">E-mail</label>
+                    <input asp-for="EmployeeEmail" type="text" class="form-control" />
+                    <span asp-validation-for="EmployeeEmail" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="HireDate" class="form-label">Fecha Contratación</label>
+                    <input asp-for="HireDate" type="text" class="form-control datepicker" />
+                    <span asp-validation-for="HireDate" class="text-danger"></span>
+                </div>
+                <button type="submit" class="btn btn-primary">Aceptar</button>
+                <a href="@Url.Action("Index", "Employee")" class="btn btn-secondary">Cancelar</a>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
+
+    <script>
+        $(function () {
+            $(".datepicker").datepicker({
+                minDate: 0, // Establece la fecha mínima como la fecha actual
+                dateFormat: 'yy-mm-dd', // Formato de fecha
+                changeMonth: true,
+                changeYear: true
+            });
+        });
+
+        function confirmAction() {
+            if (confirm('¿Estás seguro de agregar este empleado?')) {
+                return true; // Si el usuario hace clic en "Aceptar", el formulario se envía al servidor
+            } else {
+                window.location.href = '@Url.Action("Index", "Employee")'; // Redirigir al usuario al índice si hace clic en "Cancelar"
+                return false; // Devolver false para cancelar el envío del formulario
+            }
+        }
+    </script>
+}
