@@ -1,0 +1,100 @@
+﻿@model IEnumerable<VehiclesModel>
+@{
+	ViewData["Title"] = "Listado de Vehiculos";
+}
+
+<h1>Listado de Vehiculos</h1>
+
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+
+			<div class="mb-3 mb-3">
+				<a asp-action="Create" asp-controller="Vehicle" class="btn btn-success">
+					Nuevo Vehiculo
+				</a>
+			</div>
+
+			<table class="table table-bordered table-striped table-responsive" id="vehiculoTable">
+				<thead>
+					<tr>
+						<td>Vehiculo ID</td>
+						<td>Marca</td>
+						<td>Modelo</td>
+						<td>Año</td>
+						<td>Tipo</td>
+						<td>Disponibilidad</td>
+						<td>Acciones</td>
+					</tr>
+				</thead>
+				<tbody>
+					@foreach (var vehicle in Model)
+					{
+						<tr>
+							<td>@Html.DisplayFor(item => vehicle.VehicleID)</td>
+							<td>@Html.DisplayFor(item => vehicle.Brand)</td>
+							<td>@Html.DisplayFor(item => vehicle.Model)</td>
+							<td>@Html.DisplayFor(item => vehicle.Year)</td>
+							<td>@Html.DisplayFor(item => vehicle.Type)</td>
+							<td>@Html.DisplayFor(item => vehicle.Availability)</td>
+							<td>
+								<a asp-controller="Vehicle"
+								   asp-action="Edit"
+								   asp-route-id="@vehicle.VehicleID"
+								   class="btn btn-primary">
+									Editar
+								</a>
+								<a asp-controller="Vehicle"
+								   asp-action="Delete"
+								   asp-route-id="@vehicle.VehicleID"
+								   class="btn btn-danger">
+									Eliminar
+								</a>
+							</td>
+						</tr>
+					}
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+
+@section Scripts {
+	<script>
+		$(document).ready(function () {
+			$("#vehiculoTable").DataTable({
+				dom: 'Bfrtip',
+				buttons: [
+					{
+						extend: 'csv',
+						exportOptions: {
+							columns: ':not(:last-child)'
+						}
+					},
+					{
+						extend: 'pdf',
+						exportOptions: {
+							columns: ':not(:last-child)'
+						}
+					},
+					{
+						extend: 'excel',
+						exportOptions: {
+							columns: ':not(:last-child)'
+						}
+					}
+				],
+				columnDefs: [
+					{
+						targets: 6,
+						orderable: false,
+						searchable: false
+					}
+				],
+				language: {
+					url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json'
+				}
+			});
+		});
+	</script>
+}

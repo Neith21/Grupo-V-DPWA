@@ -1,0 +1,104 @@
+﻿@model IEnumerable<CustomersModel>
+@{
+	ViewData["Title"] = "Listado de Clientes";
+}
+
+<h1>Listado de Clientes</h1>
+
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+
+			<div class="mb-3 mb-3">
+				<a asp-action="Create" asp-controller="Customers" class="btn btn-success">
+					Nuevo Cliente
+				</a>
+			</div>
+
+			<table class="table table-bordered table-striped table-responsive" id="customersTable">
+				<thead>
+					<tr>
+						<td>Cliente ID</td>
+						<td>Nombre</td>
+						<td>Apellidos</td>
+						<td>UID</td>
+						<td>Dirección</td>
+						<td>Telefono</td>
+						<td>E-mail</td>
+						<td>Licencia</td>
+						<td>Acciones</td>
+					</tr>
+				</thead>
+				<tbody>
+					@foreach (var customer in Model)
+					{
+						<tr>
+							<td>@Html.DisplayFor(item => customer.CustomerID)</td>
+							<td>@Html.DisplayFor(item => customer.CustomerFirstName)</td>
+							<td>@Html.DisplayFor(item => customer.CustomerLastName)</td>
+							<td>@Html.DisplayFor(item => customer.UID)</td>
+							<td>@Html.DisplayFor(item => customer.Address)</td>
+							<td>@Html.DisplayFor(item => customer.Phone)</td>
+							<td>@Html.DisplayFor(item => customer.CustomerEmail)</td>
+							<td>@Html.DisplayFor(item => customer.License)</td>
+							<td>
+								<a asp-controller="Customers"
+								   asp-action="Edit"
+								   asp-route-id="@customer.CustomerID"
+								   class="btn btn-primary">
+									Editar
+								</a>
+								<a asp-controller="Customers"
+								   asp-action="Delete"
+								   asp-route-id="@customer.CustomerID"
+								   class="btn btn-danger">
+									Eliminar
+								</a>
+							</td>
+						</tr>
+					}
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+
+@section Scripts {
+	<script>
+		$(document).ready(function () {
+			$("#customersTable").DataTable({
+				dom: 'Bfrtip',
+				buttons: [
+					{
+						extend: 'csv',
+						exportOptions: {
+							columns: ':not(:last-child)'
+						}
+					},
+					{
+						extend: 'pdf',
+						exportOptions: {
+							columns: ':not(:last-child)'
+						}
+					},
+					{
+						extend: 'excel',
+						exportOptions: {
+							columns: ':not(:last-child)'
+						}
+					}
+				],
+				columnDefs: [
+					{
+						targets: 8,
+						orderable: false,
+						searchable: false
+					}
+				],
+				language: {
+					url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json'
+				}
+			});
+		});
+	</script>
+}

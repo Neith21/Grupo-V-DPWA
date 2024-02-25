@@ -19,6 +19,11 @@ namespace G5CarRental
 			builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
             builder.Services.AddScoped<IValidator<EmployeeModel>, EmployeeValidator>();
             builder.Services.AddScoped<IRentalsRepository, RentalsRepository>();
+			builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
+			builder.Services.AddScoped<IValidator<CustomersModel>, CustomerValidator>();
+            builder.Services.AddScoped<IVehicleRepository, VehicleRepository>();
+            builder.Services.AddScoped<IValidator<VehiclesModel>, VehicleValidator>();
+
 
             var app = builder.Build();
 

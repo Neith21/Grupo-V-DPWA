@@ -1,0 +1,70 @@
+﻿@model VehiclesModel
+@{
+    ViewData["Title"] = "Edición de Vehículos";
+}
+
+<h1>Editar Vehículo</h1>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+
+            <div asp-validation-summary="ModelOnly"></div>
+
+            <form asp-action="Edit" onsubmit="return confirmAction();">
+                @Html.AntiForgeryToken()
+                <div class="mb-3">
+                    <input asp-for="VehicleID" type="hidden" class="form-control" />
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Brand" class="form-label">Marca</label>
+                    <input asp-for="Brand" type="text" class="form-control" />
+                    <span asp-validation-for="Brand" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Model" class="form-label">Modelo</label>
+                    <input asp-for="Model" type="text" class="form-control" />
+                    <span asp-validation-for="Model" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Year" class="form-label">Año</label>
+                    <input asp-for="Year" type="text" class="form-control" />
+                    <span asp-validation-for="Year" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Type" class="form-label">Tipo</label>
+                    <input asp-for="Type" type="text" class="form-control" />
+                    <span asp-validation-for="Type" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Availability" class="form-label">Disponibilidad</label>
+                    <input asp-for="Availability" type="text" class="form-control" />
+                    <span asp-validation-for="Availability" class="text-danger"></span>
+                </div>
+                <button type="submit" class="btn btn-primary">Modificar</button>
+                <a href="@Url.Action("Index", "Vehicle")" class="btn btn-secondary">Cancelar</a>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
+
+    <script>
+        function confirmAction() {
+            if (confirm('¿Estás seguro de editar este Vehículo?')) {
+                return true;
+            } else {
+                window.location.href = '@Url.Action("Index", "Vehicle")';
+                return false;
+            }
+        }
+    </script>
+}

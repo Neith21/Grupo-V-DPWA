@@ -1,0 +1,80 @@
+﻿@model CustomersModel
+@{
+    ViewData["Title"] = "Edición de Clientes";
+}
+
+<h1>Editar Clientes</h1>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+
+            <div asp-validation-summary="ModelOnly"></div>
+
+            <form asp-action="Edit" onsubmit="return confirmAction();">
+                @Html.AntiForgeryToken()
+                <div class="mb-3">
+                    <input asp-for="CustomerID" type="hidden" class="form-control" />
+                </div>
+                <div class="mb-3">
+                    <label asp-for="CustomerFirstName" class="form-label">Nombres</label>
+                    <input asp-for="CustomerFirstName" type="text" class="form-control" />
+                    <span asp-validation-for="CustomerFirstName" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="CustomerLastName" class="form-label">Apellidos</label>
+                    <input asp-for="CustomerLastName" type="text" class="form-control" />
+                    <span asp-validation-for="CustomerLastName" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="UID" class="form-label">Documento Unico de Identidad</label>
+                    <input asp-for="UID" type="text" class="form-control" />
+                    <span asp-validation-for="UID" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Address" class="form-label">Dirección</label>
+                    <input asp-for="Address" type="text" class="form-control" />
+                    <span asp-validation-for="Address" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Phone" class="form-label">Telefono</label>
+                    <input asp-for="Phone" type="text" class="form-control" />
+                    <span asp-validation-for="Phone" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="CustomerEmail" class="form-label">Email</label>
+                    <input asp-for="CustomerEmail" type="text" class="form-control" />
+                    <span asp-validation-for="CustomerEmail" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="License" class="form-label">Licencia</label>
+                    <input asp-for="License" type="text" class="form-control" />
+                    <span asp-validation-for="License" class="text-danger"></span>
+                </div>
+                <button type="submit" class="btn btn-primary">Modificar</button>
+                <a href="@Url.Action("Index", "Customers")" class="btn btn-secondary">Cancelar</a>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
+
+    <script>
+        function confirmAction() {
+            if (confirm('¿Estás seguro de editar este cliente?')) {
+                return true;
+            } else {
+                window.location.href = '@Url.Action("Index", "Costumers")';
+                return false;
+            }
+        }
+    </script>
+}
