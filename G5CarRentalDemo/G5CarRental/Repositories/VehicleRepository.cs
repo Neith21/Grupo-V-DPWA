@@ -117,7 +117,7 @@ namespace G5CarRental.Repositories
 												Model = @Model,
 												Year = @Year,
 												Type = @Type,
-												Availability = @Availability,
+												Availability = @Availability
 											WHERE 
 												VehicleId = @VehicleId";
 					command.Parameters.AddWithValue("@Brand", vehicle.Brand);
@@ -125,7 +125,8 @@ namespace G5CarRental.Repositories
 					command.Parameters.AddWithValue("@Year", vehicle.Year);
 					command.Parameters.AddWithValue("@Type", vehicle.Type);
 					command.Parameters.AddWithValue("@Availability", vehicle.Availability);
-					command.CommandType = CommandType.Text;
+                    command.Parameters.AddWithValue("@VehicleId", vehicle.VehicleID);
+                    command.CommandType = CommandType.Text;
 					command.ExecuteNonQuery();
 				}
 			}
